@@ -33,18 +33,18 @@ cArbol* cArbol::crearArbol(cArbol* root, int i) {
 void cArbol::imprimirArbol(cArbol* root) {
 	cArbol* aux = root;
 	if (aux != NULL) {
-		//inorden
+		/*//inorden
 		imprimirArbol(aux->izq);
 		cout << aux->dato << " -> ";
-		imprimirArbol(aux->der);
-		/*//posorden
-		imprimirArbol(aux->izq);
+		imprimirArbol(aux->der);*/
+		//posorden
+		/*imprimirArbol(aux->izq);
 		imprimirArbol(aux->der);
 		cout << aux->dato << " -> ";
-		cout << "Pre orden" << endl;
-		imprimirArbol(aux->der);
+		cout << "Pre orden" << endl;*/
+		cout << aux->dato << " -> ";
 		imprimirArbol(aux->izq);
-		cout << aux->dato << " -> ";*/
+		imprimirArbol(aux->der);
 	}
 }
 int main() {
