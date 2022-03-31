@@ -1,72 +1,114 @@
 #include <iostream>
 using namespace std;
 
-class cArbol {
+class cArbol
+{
 public:
 	cArbol();
-	cArbol* crearArbol(cArbol* root, int i);
-	void imprimirArbol(cArbol*);
-	cArbol* izq,* der;
+	cArbol *crearArbol(cArbol *, int);
+	cArbol *izq, *der;
 	int dato;
+	// -> Metodos para imprimir de diferentes maneras
+	void imprimirPosOrden(cArbol *);
+	void imprimirPreOrden(cArbol *);
+	void imprimirInOrden(cArbol *);
 };
 
-cArbol::cArbol() {
+cArbol::cArbol()
+{
 	izq = der = NULL;
 	dato = 0;
 }
-cArbol* cArbol::crearArbol(cArbol* root, int i) {
-	if (root == NULL) {
+cArbol *cArbol::crearArbol(cArbol *root, int i)
+{
+	if (root == NULL)
+	{
 		root = new cArbol();
 		root->dato = i;
 	}
-	else if (i < root->dato) {
-		// recursividad 
+	else if (i < root->dato)
+	{
+		// recursividad
 		root->izq = crearArbol(root->izq, i);
 	}
-	else if (i > root->dato) {
+	else if (i > root->dato)
+	{
 		root->der = crearArbol(root->der, i);
 	}
 	return root;
 }
-
-
-void cArbol::imprimirArbol(cArbol* root) {
-	cArbol* aux = root;
-	if (aux != NULL) {
-		/*//inorden
-		imprimirArbol(aux->izq);
+void cArbol::imprimirPreOrden(cArbol *root)
+{
+	cArbol *aux;
+	aux = root;
+	if (aux != NULL)
+	{
 		cout << aux->dato << " -> ";
-		imprimirArbol(aux->der);*/
-		//posorden
-		/*imprimirArbol(aux->izq);
-		imprimirArbol(aux->der);
-		cout << aux->dato << " -> ";
-		cout << "Pre orden" << endl;*/
-		cout << aux->dato << " -> ";
-		imprimirArbol(aux->izq);
-		imprimirArbol(aux->der);
+		imprimirPreOrden(aux->izq);
+		imprimirPreOrden(aux->der);
 	}
 }
-int main() {
-	cArbol* root = NULL;
-	cArbol* obj = new cArbol();
+void cArbol::imprimirPosOrden(cArbol *root)
+{
+	cArbol *aux;
+	aux = root;
+	if (aux != NULL)
+	{
+		imprimirPosOrden(aux->izq);
+		imprimirPosOrden(aux->der);
+		cout << aux->dato << " -> ";
+	}
+}
+void cArbol::imprimirInOrden(cArbol *root)
+{
+	cArbol *aux;
+	aux = root;
+	if (aux != NULL)
+	{
+		imprimirInOrden(aux->izq);
+		cout << aux->dato << " -> ";
+		imprimirInOrden(aux->der);
+	}
+}
+int main()
+{
+	cArbol *root = NULL;
+	cArbol *obj = new cArbol();
 	int valor, size;
-	cout << "Cuantos valores quieres en tu lista ?"<<endl;
+	cout << "Cuantos valores quieres en tu lista ?" << endl;
 	cout << ": ";
 	cin >> size;
-	for (int i = 0; i < size; i++) {
+	for (int i = 0; i < size; i++)
+	{
 		cout << "Dame un valor para ingresar" << endl;
 		cin >> valor;
 		root = obj->crearArbol(root, valor);
-	}/*
-	root = obj->crearArbol(root, 900);
-	root = obj->crearArbol(root, 300);
-	root = obj->crearArbol(root, 500);
-	root = obj->crearArbol(root, 1200);
-	root = obj->crearArbol(root, 956);
-	root = obj->crearArbol(root, 45);*/
-	obj->imprimirArbol(root);
+	}
+	int opc;
+	cout << "Que quieres hacer ahora?" << endl;
+	do
+	{
+
+		cout << "\n(1) In Orden\n(2) Para Pre Orden\n(3) Pos Orden\n(4) para salir\n: ";
+		cin >> opc;
+		switch (opc)
+		{
+		case 1:
+			obj->imprimirInOrden(root);
+			break;
+		case 2:
+			obj->imprimirPreOrden(root);
+			break;
+		case 3:
+			obj->imprimirPosOrden(root);
+			break;
+			case 4:
+			break;
+		default:
+			break;
+		}
+
+	} while (opc != 4);
+
 	return 0;
 }
-
-// duinamico cuantos numeros quieres en tu lista y dame los valores para el lunes para el viernes 
